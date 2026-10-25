@@ -66,7 +66,7 @@ class Context:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "BiliAudioStudio/1.0"
+    server_version = "BiliAudioStudio/0.1"
     protocol_version = "HTTP/1.1"
     ctx: Context
 
