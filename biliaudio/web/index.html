@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bili Audio Studio · B 站纯音频合辑</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">♪</div>
+      <div class="brand-text">
+        <h1>Bili Audio Studio</h1>
+        <p>B 站纯音频合辑 · 定位符拼接</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <input id="project-name" class="project-name" value="未命名合辑" spellcheck="false">
+      <button id="btn-projects" class="ghost">项目</button>
+      <button id="btn-settings" class="ghost" title="设置">⚙ 设置</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel left">
+      <div class="panel-head">
+        <h2>添加音频</h2>
+        <span class="hint">每行一个链接，解析成功会自动加入列表并从框里删掉</span>
+      </div>
+      <textarea id="urls" spellcheck="false" placeholder="https://www.bilibili.com/video/BV1xx411c7mD
+BV1GJ411x7h7
+https://b23.tv/xxxxxx"></textarea>
+      <div class="row wrap">
+        <button id="btn-parse" class="primary">解析并添加</button>
+        <span id="parse-hint" class="hint"></span>
+      </div>
+
+      <div class="panel-head row-between">
+        <h2>曲目 <span id="track-count" class="badge">0</span></h2>
+        <span id="total-duration" class="hint"></span>
+      </div>
+      <ul id="tracks" class="tracks"></ul>
+
+      <div class="row wrap actions">
+        <button id="btn-download" class="ghost">仅下载</button>
+        <button id="btn-build" class="primary">下载并合并</button>
+        <button id="btn-build-force" class="ghost" title="忽略转码缓存，重新生成">强制重建</button>
+      </div>
+      <div class="row job-row">
+        <span id="job-status" class="hint"></span>
+        <button id="btn-cancel" class="link hidden">取消</button>
+      </div>
+    </section>
+
+    <section class="panel right">
+      <div class="player-card">
+        <div class="now-playing">
+          <div class="np-title" id="np-title">尚未生成音频</div>
+          <div class="np-sub" id="np-sub">添加链接 → 下载并合并</div>
+        </div>
+        <audio id="audio" preload="metadata"></audio>
+        <div class="timeline" id="timeline" title="点击跳转">
+          <div class="tl-buffer" id="tl-buffer"></div>
+          <div class="tl-progress" id="tl-progress"></div>
+          <div class="tl-markers" id="tl-markers"></div>
+        </div>
+        <div class="time-row"><span id="t-cur">0:00</span><span id="t-dur">0:00</span></div>
+        <div class="controls">
+          <button id="btn-prev" class="ctrl" title="上一首 (P)">⏮</button>
+          <button id="btn-play" class="ctrl play" title="播放/暂停 (空格)">▶</button>
+          <button id="btn-next" class="ctrl" title="下一首 (N)">⏭</button>
+          <button id="btn-loop" class="ctrl loop" data-mode="off" title="顺序播放（L 切换循环）"><span class="loop-glyph">↻</span><span class="loop-one">1</span></button>
+          <div class="spacer"></div>
+          <div class="volume" id="volume-box" title="拖动调节音量">
+            <button id="btn-mute" class="ctrl small" title="静音 / 恢复 (M)">🔊</button>
+            <input id="volume" class="volume-range" type="range" min="0" max="100" step="1" value="80" aria-label="音量">
+            <span id="volume-label" class="volume-label">80%</span>
+          </div>
+          <span id="marker-now" class="badge">—</span>
+        </div>
+        <div class="row wrap">
+          <button id="btn-reveal" class="ghost">打开所在文件夹</button>
+          <button id="btn-reload" class="ghost">重新载入</button>
+          <span id="file-hint" class="hint ellipsis"></span>
+        </div>
+      </div>
+
+      <details class="logbox">
+        <summary>运行日志</summary>
+        <div class="logbox-body">
+          <div class="row row-between">
+            <span class="hint">出现问题时看这里</span>
+            <button id="btn-clear-log" class="link">清空</button>
+          </div>
+          <pre id="log" class="log"></pre>
+        </div>
+      </details>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modal-title">设置</h3>
+      <button id="modal-close" class="link">关闭</button>
+    </div>
+    <div id="modal-body" class="modal-body"></div>
+    <div class="modal-foot">
+      <button id="modal-cancel" class="ghost">取消</button>
+      <button id="modal-ok" class="primary">保存</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

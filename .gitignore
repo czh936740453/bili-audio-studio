@@ -1,0 +1,32 @@
+# ---- 运行时私有数据（不要提交） ----
+workspace/
+vendor/
+
+# ---- 凭据 / 本地配置 ----
+.env
+.env.local
+*.sessdata
+
+# ---- 生成的音频与缓存 ----
+*.m4a
+*.m4s
+*.mp3
+*.cue
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- 临时文件 / 日志 / 系统垃圾 ----
+*.log
+*.tmp
+*.part
+*.bak
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,352 @@
+:root {
+  --bg: #0f1116;
+  --bg-2: #161a22;
+  --panel: #1a1f29;
+  --panel-2: #212836;
+  --line: #2b3342;
+  --text: #e8ecf4;
+  --muted: #8b96a8;
+  --accent: #fb7299;
+  --accent-2: #ff9db8;
+  --ok: #3ddc97;
+  --warn: #ffb547;
+  --err: #ff5d6c;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: radial-gradient(1200px 600px at 15% -10%, #2a1c26 0%, transparent 60%),
+              radial-gradient(900px 500px at 100% 0%, #182534 0%, transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font: 14px/1.5 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.app { display: flex; flex-direction: column; height: 100vh; min-height: 0; }
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+  padding: 12px clamp(12px, 2vw, 20px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(15, 17, 22, .72);
+  backdrop-filter: blur(10px);
+  flex: none;
+}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.logo {
+  width: 40px; height: 40px; border-radius: 12px; flex: none;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, var(--accent), #a855f7);
+  font-size: 20px; font-weight: 700;
+  box-shadow: 0 6px 20px rgba(251, 114, 153, .32);
+}
+.brand-text { min-width: 0; }
+.brand-text h1 { margin: 0; font-size: 16px; letter-spacing: .3px; white-space: nowrap; }
+.brand-text p {
+  margin: 0; font-size: 12px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.project-name {
+  background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+  border-radius: 10px; padding: 8px 12px; font: inherit;
+  width: clamp(120px, 20vw, 220px); min-width: 0;
+}
+.project-name:focus { outline: none; border-color: var(--accent); }
+
+/* ---------- 布局 ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+  gap: 14px;
+  padding: 14px clamp(12px, 2vw, 20px) 18px;
+  flex: 1;
+  min-height: 0;
+}
+.panel {
+  background: linear-gradient(180deg, var(--panel), #171c25);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(12px, 1.4vw, 16px);
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 0; min-width: 0; overflow-y: auto;
+}
+
+.panel-head { display: flex; align-items: baseline; gap: 10px; min-width: 0; flex-wrap: wrap; }
+.panel-head.row-between { justify-content: space-between; }
+.panel-head h2 {
+  margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .6px;
+  color: #b9c3d4; text-transform: uppercase;
+}
+.hint { color: var(--muted); font-size: 12px; }
+.ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.badge {
+  display: inline-block; min-width: 22px; text-align: center;
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 999px; padding: 1px 8px; font-size: 12px; color: var(--muted);
+}
+
+/* ---------- 输入 ---------- */
+textarea {
+  width: 100%; min-height: 84px; resize: vertical;
+  background: #12161e; color: var(--text);
+  border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px; font: 13px/1.6 "Cascadia Mono", Consolas, monospace;
+}
+textarea:focus { outline: none; border-color: var(--accent); }
+
+button { font: inherit; cursor: pointer; border-radius: 10px; transition: .15s ease; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.primary {
+  background: linear-gradient(135deg, var(--accent), #e9557f);
+  color: #fff; border: none; padding: 9px 18px; font-weight: 600;
+  box-shadow: 0 6px 18px rgba(251, 114, 153, .25);
+}
+.primary:hover:not(:disabled) { filter: brightness(1.08); }
+.ghost {
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid var(--line); padding: 8px 14px;
+}
+.ghost:hover:not(:disabled) { border-color: var(--accent); color: var(--accent-2); }
+.link { background: none; border: none; color: var(--muted); padding: 4px 6px; }
+.link:hover { color: var(--accent); }
+.row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.row.wrap { flex-wrap: wrap; }
+.row-between { justify-content: space-between; }
+.spacer { flex: 1; }
+.actions { flex-wrap: wrap; }
+.job-row { min-height: 20px; }
+.job-row #job-status { flex: 1; }
+
+/* ---------- 曲目列表 ---------- */
+.tracks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.track {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 8px 10px; min-width: 0;
+}
+.track:hover { border-color: #3b465a; }
+.track.active { border-color: rgba(251, 114, 153, .55); background: rgba(251, 114, 153, .1); }
+.track.dragging { opacity: .4; }
+.track.drop-target { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.track .handle { cursor: grab; color: var(--muted); font-size: 15px; user-select: none; flex: none; }
+.track .index {
+  color: var(--muted); font: 12px "Cascadia Mono", Consolas, monospace;
+  width: 18px; text-align: right; flex: none;
+}
+.row-play {
+  width: 30px; height: 30px; flex: none; border-radius: 50%;
+  display: grid; place-items: center; font-size: 11px; line-height: 1;
+  background: rgba(251, 114, 153, .16); border: 1px solid rgba(251, 114, 153, .45);
+  color: var(--accent-2);
+}
+.row-play:hover:not(:disabled) { background: var(--accent); color: #fff; border-color: var(--accent); }
+.row-play:disabled { background: transparent; border-color: var(--line); color: var(--muted); }
+.track .info { flex: 1; min-width: 0; }
+.track .t-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.track .t-sub {
+  color: var(--muted); font-size: 11.5px;
+  display: flex; gap: 8px; flex-wrap: wrap; overflow: hidden;
+}
+.track .t-sub .pending { color: var(--warn); }
+.track .icon-btn {
+  background: none; border: none; color: var(--muted);
+  padding: 2px 5px; font-size: 13px; flex: none;
+}
+.track .icon-btn:hover { color: var(--accent); }
+.empty { color: var(--muted); text-align: center; padding: 24px 0; font-size: 13px; }
+
+/* ---------- 播放器 ---------- */
+.player-card {
+  background: linear-gradient(160deg, #22202c, #171c25);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(14px, 1.6vw, 18px);
+  display: flex; flex-direction: column; gap: 12px; min-width: 0;
+}
+.now-playing { min-height: 42px; min-width: 0; }
+.np-title {
+  font-size: clamp(15px, 1.5vw, 17px); font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.np-sub {
+  color: var(--muted); font-size: 12px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.timeline {
+  position: relative; height: 32px; border-radius: 9px;
+  background: #0e1219; border: 1px solid var(--line); cursor: pointer; overflow: hidden;
+}
+.tl-buffer, .tl-progress { position: absolute; left: 0; top: 0; bottom: 0; width: 0; }
+.tl-buffer { background: rgba(255, 255, 255, .05); }
+.tl-progress { background: linear-gradient(90deg, var(--accent), var(--accent-2)); opacity: .55; }
+.tl-markers { position: absolute; inset: 0; }
+.tl-tick { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255, 255, 255, .55); }
+.tl-tick.active { background: #fff; box-shadow: 0 0 8px #fff; }
+.time-row {
+  display: flex; justify-content: space-between; color: var(--muted);
+  font: 12px "Cascadia Mono", Consolas, monospace;
+}
+.controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ctrl {
+  background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+  width: 42px; height: 42px; border-radius: 50%; font-size: 15px; flex: none;
+  display: grid; place-items: center;
+}
+.ctrl:hover { border-color: var(--accent); color: var(--accent-2); }
+.ctrl.play {
+  width: 52px; height: 52px; font-size: 19px; border: none;
+  background: linear-gradient(135deg, var(--accent), #e9557f);
+  box-shadow: 0 8px 22px rgba(251, 114, 153, .3);
+}
+/* 循环模式按钮：↻ / ↻1 */
+.ctrl.loop { width: 42px; height: 42px; font-size: 15px; position: relative; }
+.ctrl.loop .loop-glyph { line-height: 1; }
+.ctrl.loop .loop-one {
+  display: none; position: absolute; right: 4px; bottom: 3px;
+  font-size: 9px; font-weight: 700; line-height: 1;
+  background: var(--accent); color: #fff; border-radius: 6px; padding: 1px 3px;
+}
+.ctrl.loop[data-mode="one"] .loop-one { display: block; }
+.ctrl.loop.active { border-color: var(--accent); color: var(--accent-2); background: rgba(251, 114, 153, .14); }
+.ctrl.loop[data-mode="off"] { color: var(--muted); }
+audio { display: none; }
+.controls .badge {
+  max-width: min(220px, 34vw); overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ---------- 音量 ---------- */
+.volume {
+  display: flex; align-items: center; gap: 8px;
+  padding: 3px 10px 3px 4px; border-radius: 999px;
+  border: 1px solid transparent; transition: .15s ease;
+}
+.volume:hover { background: var(--panel-2); border-color: var(--line); }
+.volume.muted #btn-mute { color: var(--muted); }
+.ctrl.small {
+  width: 30px; height: 30px; border: none; background: none;
+  font-size: 13px; border-radius: 50%;
+}
+.ctrl.small:hover { color: var(--accent-2); background: rgba(255, 255, 255, .06); border: none; }
+.volume-range {
+  -webkit-appearance: none; appearance: none;
+  width: clamp(56px, 11vw, 100px); height: 4px; border-radius: 99px;
+  cursor: pointer; outline: none; flex: none;
+  background: linear-gradient(to right, var(--accent) 0 var(--vol, 80%), #39414f var(--vol, 80%) 100%);
+}
+.volume-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .45);
+}
+.volume-range::-moz-range-thumb {
+  width: 13px; height: 13px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--accent);
+}
+.volume.muted .volume-range {
+  background: linear-gradient(to right, #5a6473 0 var(--vol, 80%), #39414f var(--vol, 80%) 100%);
+}
+.volume-label {
+  font: 11.5px "Cascadia Mono", Consolas, monospace;
+  color: var(--muted); width: 34px; text-align: right; user-select: none; flex: none;
+}
+
+/* ---------- 日志 ---------- */
+.logbox {
+  border: 1px solid var(--line); border-radius: 12px;
+  background: #131822; overflow: hidden; flex: none;
+}
+.logbox > summary {
+  cursor: pointer; padding: 9px 14px; color: #b9c3d4; font-size: 12.5px;
+  list-style: none; user-select: none;
+}
+.logbox > summary::-webkit-details-marker { display: none; }
+.logbox > summary::before { content: "▸ "; color: var(--muted); }
+.logbox[open] > summary::before { content: "▾ "; }
+.logbox-body { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.log {
+  margin: 0; max-height: 220px; overflow: auto;
+  background: #0d1117; border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; font: 12px/1.65 "Cascadia Mono", Consolas, monospace;
+  color: #9fb0c7; white-space: pre-wrap; word-break: break-all;
+}
+.log .warn { color: var(--warn); }
+.log .error { color: var(--err); }
+.log .debug { color: #5b6879; }
+
+/* ---------- 弹窗 / 提示 ---------- */
+.modal {
+  position: fixed; inset: 0; background: rgba(5, 7, 11, .68);
+  display: grid; place-items: center; z-index: 50; backdrop-filter: blur(3px);
+}
+.modal-card {
+  width: min(600px, 92vw); max-height: 86vh; display: flex; flex-direction: column;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+}
+.modal-head, .modal-foot { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+.modal-head { border-bottom: 1px solid var(--line); }
+.modal-head h3 { margin: 0; font-size: 15px; }
+.modal-foot { border-top: 1px solid var(--line); justify-content: flex-end; gap: 10px; }
+.modal-body { padding: 16px 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 12.5px; color: #b9c3d4; }
+.field input, .field select {
+  background: #12161e; border: 1px solid var(--line); color: var(--text);
+  border-radius: 10px; padding: 9px 11px; font: inherit; width: 100%;
+}
+.field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
+.field .tip { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.project-row { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 10px; border: 1px solid var(--line); }
+.project-row .pname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-row .pmeta { color: var(--muted); font-size: 11.5px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  background: #212836; border: 1px solid var(--line); color: var(--text);
+  padding: 10px 18px; border-radius: 10px; z-index: 60;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .45); max-width: 86vw;
+}
+.toast.error { border-color: rgba(255, 93, 108, .6); color: #ffd7db; }
+.toast.ok { border-color: rgba(61, 220, 151, .5); }
+.hidden { display: none !important; }
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: #2b3342; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4557; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- 窄窗口：上下排列，避免挤压变形 ---------- */
+@media (max-width: 1080px) {
+  html, body { overflow: auto; height: auto; }
+  .app { height: auto; min-height: 100vh; }
+  .layout { grid-template-columns: minmax(0, 1fr); padding-bottom: 24px; }
+  .panel { overflow: visible; }
+}
+
+@media (max-width: 720px) {
+  .brand-text p { display: none; }
+  .logo { width: 34px; height: 34px; font-size: 17px; }
+  .topbar { padding: 10px 12px; }
+  .top-actions { width: 100%; }
+  .project-name { width: 100%; order: 3; }
+  .panel { padding: 12px; }
+  .ctrl { width: 38px; height: 38px; }
+  .ctrl.play { width: 46px; height: 46px; }
+  .ctrl.loop { width: 38px; height: 38px; }
+  .ctrl.loop .loop-one { right: 3px; bottom: 2px; font-size: 8px; padding: 0 2px; }
+  .controls { gap: 8px; }
+  .volume { padding-right: 6px; }
+  .volume-label { width: 30px; }
+  .tracks { gap: 5px; }
+  .track { padding: 7px 8px; gap: 6px; }
+  .track .index { display: none; }
+  .log { max-height: 150px; }
+}
